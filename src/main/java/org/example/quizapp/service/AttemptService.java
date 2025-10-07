@@ -12,16 +12,19 @@ import org.example.quizapp.entity.User;
 import org.example.quizapp.repository.AttemptRepository;
 import org.example.quizapp.repository.QuizRepository;
 import org.example.quizapp.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class AttemptService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AttemptService.class);
 
     @Autowired
     private AttemptRepository attemptRepository;
@@ -35,9 +38,14 @@ public class AttemptService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Transactional
     public AttemptResponse submitAttempt(Long quizId, AttemptRequest request) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        logger.info("User {} attempting quiz {}", username, quizId);
+        
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -56,6 +64,7 @@ public class AttemptService {
         }
 
         double score = totalQuestions > 0 ? (correctAnswers * 100.0) / totalQuestions : 0.0;
+        logger.info("User {} scored {}/{} ({}%) on quiz {}", username, correctAnswers, totalQuestions, score, quiz.getTitle());
 
         // Save attempt
         Attempt attempt = new Attempt();
@@ -65,10 +74,15 @@ public class AttemptService {
         try {
             attempt.setAnswers(objectMapper.writeValueAsString(request.getAnswers()));
         } catch (JsonProcessingException e) {
+            logger.error("Error processing answers for quiz attempt", e);
             throw new RuntimeException("Error processing answers", e);
         }
 
         attempt = attemptRepository.save(attempt);
+        logger.info("Quiz attempt saved with ID: {}", attempt.getId());
+
+        // Send async notification
+        notificationService.sendQuizAttemptNotification(username, quiz.getTitle(), score);
 
         // Create response
         AttemptResponse response = new AttemptResponse();
@@ -85,11 +99,15 @@ public class AttemptService {
     }
 
     public AttemptResponse getAttemptResult(Long attemptId) {
+        logger.info("Fetching attempt result for ID: {}", attemptId);
+        
         Attempt attempt = attemptRepository.findById(attemptId)
                 .orElseThrow(() -> new RuntimeException("Attempt not found"));
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if (!attempt.getUser().getUsername().equals(username)) {
+            logger.warn("User {} attempted to view attempt {} belonging to {}", 
+                    username, attemptId, attempt.getUser().getUsername());
             throw new RuntimeException("You can only view your own attempts");
         }
 
