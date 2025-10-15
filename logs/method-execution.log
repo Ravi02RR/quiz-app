@@ -1,0 +1,41 @@
+2025-10-07 10:29:05 [http-nio-8080-exec-1] - >>> Entering method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:05 [http-nio-8080-exec-1] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:05 [http-nio-8080-exec-1] - >>> Entering method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:05 [http-nio-8080-exec-1] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:05 [http-nio-8080-exec-1] - !!! Exception in method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:05 [http-nio-8080-exec-1] -     Execution time before exception: 296 ms
+2025-10-07 10:29:05 [http-nio-8080-exec-1] - !!! Exception in method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:05 [http-nio-8080-exec-1] -     Execution time before exception: 299 ms
+2025-10-07 10:29:09 [http-nio-8080-exec-6] - >>> Entering method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:09 [http-nio-8080-exec-6] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:09 [http-nio-8080-exec-6] - >>> Entering method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:09 [http-nio-8080-exec-6] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:09 [http-nio-8080-exec-6] - !!! Exception in method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:09 [http-nio-8080-exec-6] -     Execution time before exception: 213 ms
+2025-10-07 10:29:09 [http-nio-8080-exec-6] - !!! Exception in method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:09 [http-nio-8080-exec-6] -     Execution time before exception: 216 ms
+2025-10-07 10:29:34 [http-nio-8080-exec-7] - >>> Entering method: org.example.quizapp.controller.AuthController.register
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Arguments: [RegisterRequest(username=john_user, password=password123, role=USER)]
+2025-10-07 10:29:34 [http-nio-8080-exec-7] - >>> Entering method: org.example.quizapp.service.AuthService.register
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Arguments: [RegisterRequest(username=john_user, password=password123, role=USER)]
+2025-10-07 10:29:34 [http-nio-8080-exec-7] - <<< Exiting method: org.example.quizapp.service.AuthService.register
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Execution time: 555 ms
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Return value: AuthResponse
+2025-10-07 10:29:34 [http-nio-8080-exec-7] - <<< Exiting method: org.example.quizapp.controller.AuthController.register
+2025-10-07 10:29:34 [task-1] - >>> Entering method: org.example.quizapp.service.NotificationService.sendRegistrationNotification
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Execution time: 557 ms
+2025-10-07 10:29:34 [task-1] -     Arguments: [john_user]
+2025-10-07 10:29:34 [http-nio-8080-exec-7] -     Return value: ResponseEntity
+2025-10-07 10:29:36 [task-1] - <<< Exiting method: org.example.quizapp.service.NotificationService.sendRegistrationNotification
+2025-10-07 10:29:36 [task-1] -     Execution time: 1816 ms
+2025-10-07 10:29:36 [task-1] -     Return value: null
+2025-10-07 10:29:38 [http-nio-8080-exec-4] - >>> Entering method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:38 [http-nio-8080-exec-4] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:38 [http-nio-8080-exec-4] - >>> Entering method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:38 [http-nio-8080-exec-4] -     Arguments: [AuthRequest(username=john_user, password=password123)]
+2025-10-07 10:29:39 [http-nio-8080-exec-4] - <<< Exiting method: org.example.quizapp.service.AuthService.login
+2025-10-07 10:29:39 [http-nio-8080-exec-4] -     Execution time: 119 ms
+2025-10-07 10:29:39 [http-nio-8080-exec-4] -     Return value: AuthResponse
+2025-10-07 10:29:39 [http-nio-8080-exec-4] - <<< Exiting method: org.example.quizapp.controller.AuthController.login
+2025-10-07 10:29:39 [http-nio-8080-exec-4] -     Execution time: 120 ms
+2025-10-07 10:29:39 [http-nio-8080-exec-4] -     Return value: ResponseEntity
